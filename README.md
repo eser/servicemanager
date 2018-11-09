@@ -1,8 +1,10 @@
-# [ServiceManager](https://github.com/eserozvataf/servicemanager)
+# 🔌 [ServiceManager](https://github.com/eserozvataf/servicemanager)
 
+[![build status][build-image]][build-url]
 [![npm version][npm-image]][npm-url]
 [![npm download][download-image]][npm-url]
 [![dependencies][dep-image]][dep-url]
+[![coverage status][coverage-image]][coverage-url]
 [![license][license-image]][license-url]
 
 
@@ -161,10 +163,14 @@ It is publicly open for any contribution. Bugfixes, new features and extra modul
 [Visit my patreon profile at patreon.com/eserozvataf](https://www.patreon.com/eserozvataf)
 
 
+[build-image]: https://travis-ci.org/eserozvataf/servicemanager.svg?branch=master
+[build-url]: https://travis-ci.org/eserozvataf/servicemanager
 [npm-image]: https://img.shields.io/npm/v/servicemanager.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/servicemanager
 [download-image]: https://img.shields.io/npm/dt/servicemanager.svg?style=flat-square
 [dep-image]: https://img.shields.io/david/eserozvataf/servicemanager.svg?style=flat-square
 [dep-url]: https://github.com/eserozvataf/servicemanager
+[coverage-image]: https://coveralls.io/repos/eserozvataf/servicemanager/badge.svg?branch=master
+[coverage-url]: https://coveralls.io/r/eserozvataf/servicemanager?branch=master
 [license-image]: https://img.shields.io/npm/l/servicemanager.svg?style=flat-square
 [license-url]: https://github.com/eserozvataf/servicemanager/blob/master/LICENSE
