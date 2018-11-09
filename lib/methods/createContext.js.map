@@ -1,0 +1,1 @@
+{"version":3,"file":"createContext.js","sourceRoot":"","sources":["../../src/lib/methods/createContext.ts"],"names":[],"mappings":";;AAGA,SAAS,aAAa,CAAC,aAAwC;IAC3D,IAAM,cAAc,GAAG,IAAI,GAAG,EAAsB,CAAC;IAErD,IAAI,aAAa,KAAK,SAAS,EAAE;QAC7B,aAAa,CAAC,cAAc,CAAC,CAAC;KACjC;IAED,OAAO,cAAc,CAAC;AAC1B,CAAC;AAGoB,gCAAO"}
