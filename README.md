@@ -170,7 +170,7 @@ It is publicly open for any contribution. Bugfixes, new features and extra modul
 [download-image]: https://img.shields.io/npm/dt/servicemanager.svg?style=flat-square
 [dep-image]: https://img.shields.io/david/eserozvataf/servicemanager.svg?style=flat-square
 [dep-url]: https://github.com/eserozvataf/servicemanager
-[coverage-image]: https://coveralls.io/repos/eserozvataf/servicemanager/badge.svg?branch=master
-[coverage-url]: https://coveralls.io/r/eserozvataf/servicemanager?branch=master
+[coverage-image]: https://codecov.io/gh/eserozvataf/servicemanager/branch/master/graph/badge.svg
+[coverage-url]: https://codecov.io/gh/eserozvataf/servicemanager
 [license-image]: https://img.shields.io/npm/l/servicemanager.svg?style=flat-square
 [license-url]: https://github.com/eserozvataf/servicemanager/blob/master/LICENSE
