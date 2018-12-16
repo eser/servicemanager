@@ -1,7 +1,7 @@
-import ServiceContext from '../serviceContext';
+import ServiceMap from '../serviceMap';
 
-function all(context: ServiceContext): Array<string> {
-    return Array.from(context.keys());
+function all(map: ServiceMap): Array<string> {
+    return Array.from(map.keys());
 }
 
 export {

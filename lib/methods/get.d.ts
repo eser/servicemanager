@@ -1,3 +1,3 @@
-import ServiceContext from '../serviceContext';
-declare function get(context: ServiceContext, dependency: any): any;
+import ServiceMap from '../serviceMap';
+declare function get(map: ServiceMap, dependency: any): any;
 export { get as default, };

@@ -1,0 +1,1 @@
+{"version":3,"file":"createMap.js","sourceRoot":"","sources":["../../src/lib/methods/createMap.ts"],"names":[],"mappings":";;AAGA,SAAS,SAAS,CAAC,aAAoC;IACnD,IAAM,UAAU,GAAG,IAAI,GAAG,EAAsB,CAAC;IAEjD,IAAI,aAAa,KAAK,SAAS,EAAE;QAC7B,aAAa,CAAC,UAAU,CAAC,CAAC;KAC7B;IAED,OAAO,UAAU,CAAC;AACtB,CAAC;AAGgB,4BAAO"}

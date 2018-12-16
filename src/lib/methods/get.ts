@@ -1,8 +1,8 @@
-import ServiceContext from '../serviceContext';
+import ServiceMap from '../serviceMap';
 import ServiceLifetime from '../serviceLifetime';
 
-function get(context: ServiceContext, dependency: any): any {
-    const serviceTarget = context.get(dependency);
+function get(map: ServiceMap, dependency: any): any {
+    const serviceTarget = map.get(dependency);
 
     if (serviceTarget === undefined) {
         return undefined;

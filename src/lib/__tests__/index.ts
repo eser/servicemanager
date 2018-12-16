@@ -1,8 +1,8 @@
-import ServiceManager, { createContext, singleton, transient, all, ensure, get, getRange, filter, filterByTag } from '../';
+import { ServiceContext, createMap, singleton, transient, all, ensure, get, getRange, filter, filterByTag, extendMap } from '../';
 
 describe('resolving', () => {
     test('get', () => {
-        const services = createContext(container => {
+        const services = createMap(container => {
             container.set('eser', transient('12345'));
         });
 
@@ -12,15 +12,31 @@ describe('resolving', () => {
     });
 
     test('get undefined', () => {
-        const services = createContext();
+        const services = createMap();
 
         const eser = get(services, undefined);
 
         expect(eser).toEqual(undefined);
     });
 
-    test('get with instance', () => {
-        const services = new ServiceManager(container => {
+    test('get from extended', () => {
+        const services = createMap(container => {
+            container.set('eser', transient('12345'));
+        });
+
+        const newServices = extendMap(services, container => {
+            container.set('seyma', singleton('6789'));
+        });
+
+        const eser = get(newServices, 'eser');
+        const seyma = get(newServices, 'seyma');
+
+        expect(eser).toEqual('12345');
+        expect(seyma).toEqual('6789');
+    });
+
+    test('get (context)', () => {
+        const services = new ServiceContext(container => {
             container.set('eser', transient('12345'));
         });
 
@@ -29,8 +45,24 @@ describe('resolving', () => {
         expect(eser).toEqual('12345');
     });
 
+    test('get from extended (context)', () => {
+        const services = new ServiceContext(container => {
+            container.set('eser', transient('12345'));
+        });
+
+        const newServices = services.extend(container => {
+            container.set('seyma', singleton('6789'));
+        });
+
+        const eser = newServices.get('eser');
+        const seyma = newServices.get('seyma');
+
+        expect(eser).toEqual('12345');
+        expect(seyma).toEqual('6789');
+    });
+
     test('getRange', () => {
-        const services = createContext(container => {
+        const services = createMap(container => {
             container.set('eser', transient('12345'));
             container.set('seyma', singleton('6789'));
         });
@@ -41,8 +73,8 @@ describe('resolving', () => {
         expect(seyma).toEqual('6789');
     });
 
-    test('getRange with instance', () => {
-        const services = new ServiceManager(container => {
+    test('getRange (context)', () => {
+        const services = new ServiceContext(container => {
             container.set('eser', transient('12345'));
             container.set('seyma', singleton('6789'));
         });
@@ -54,7 +86,7 @@ describe('resolving', () => {
     });
 
     test('ensure', async () => {
-        const services = createContext(container => {
+        const services = createMap(container => {
             container.set('eser', transient(() => '12345'));
             container.set('seyma', transient(async () => Promise.resolve('6789')));
         });
@@ -71,8 +103,8 @@ describe('resolving', () => {
         expect(result[1]).toEqual('6789');
     });
 
-    test('ensure with instance', async () => {
-        const services = new ServiceManager(container => {
+    test('ensure (context)', async () => {
+        const services = new ServiceContext(container => {
             container.set('eser', transient(() => '12345'));
             container.set('seyma', transient(async () => Promise.resolve('6789')));
         });
@@ -91,7 +123,7 @@ describe('resolving', () => {
 
 describe('filtering', () => {
     test('all', () => {
-        const services = createContext(container => {
+        const services = createMap(container => {
             container.set('eser', transient('12345'));
             container.set('seyma', transient('6789'));
             container.set('kedi', transient('9999'));
@@ -102,8 +134,8 @@ describe('filtering', () => {
         expect(allOfThem).toEqual([ 'eser', 'seyma', 'kedi' ]);
     });
 
-    test('all with instance', () => {
-        const services = new ServiceManager(container => {
+    test('all (context)', () => {
+        const services = new ServiceContext(container => {
             container.set('eser', transient('12345'));
             container.set('seyma', transient('6789'));
             container.set('kedi', transient('9999'));
@@ -115,7 +147,7 @@ describe('filtering', () => {
     });
 
     test('filter', () => {
-        const services = createContext(container => {
+        const services = createMap(container => {
             container.set('eser', transient('12345'));
             container.set('seyma', transient('6789'));
             container.set('kedi', transient('9999'));
@@ -126,8 +158,8 @@ describe('filtering', () => {
         expect(filtered).toEqual([ 'eser', 'seyma' ]);
     });
 
-    test('filter with instance', () => {
-        const services = new ServiceManager(container => {
+    test('filter (context)', () => {
+        const services = new ServiceContext(container => {
             container.set('eser', transient('12345'));
             container.set('seyma', transient('6789'));
             container.set('kedi', transient('9999'));
@@ -139,7 +171,7 @@ describe('filtering', () => {
     });
 
     test('filterByTag', () => {
-        const services = createContext(container => {
+        const services = createMap(container => {
             container.set('eser', singleton('12345', [ 'human' ]));
             container.set('seyma', singleton('6789', [ 'human' ]));
             container.set('kedi', singleton('9999', [ 'cat' ]));
@@ -150,8 +182,8 @@ describe('filtering', () => {
         expect(filtered).toEqual([ 'kedi' ]);
     });
 
-    test('filterByTag with instance', () => {
-        const services = new ServiceManager(container => {
+    test('filterByTag (context)', () => {
+        const services = new ServiceContext(container => {
             container.set('eser', singleton('12345', [ 'human' ]));
             container.set('seyma', singleton('6789', [ 'human' ]));
             container.set('kedi', singleton('9999', [ 'cat' ]));

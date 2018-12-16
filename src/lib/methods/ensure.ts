@@ -1,8 +1,8 @@
-import ServiceContext from '../serviceContext';
+import ServiceMap from '../serviceMap';
 import getRange from './getRange';
 
-async function ensure(context: ServiceContext, dependencies: Array<any>, callback: (...services: Array<any>) => any): Promise<any> {
-    const serviceResolutions = getRange(context, ...dependencies);
+async function ensure(map: ServiceMap, dependencies: Array<any>, callback: (...services: Array<any>) => any): Promise<any> {
+    const serviceResolutions = getRange(map, ...dependencies);
 
     const services = await Promise.all(serviceResolutions);
     const result = await callback(...services);

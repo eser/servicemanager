@@ -1,12 +1,12 @@
-import ServiceContext from '../serviceContext';
+import ServiceMap from '../serviceMap';
 import ServiceTarget from '../serviceTarget';
 
 type FilterPredicate = (serviceTarget: ServiceTarget, dependency: any) => boolean;
 
-function filter(context: ServiceContext, predicate: FilterPredicate): Array<string> {
+function filter(map: ServiceMap, predicate: FilterPredicate): Array<string> {
     const result: Array<string> = [];
 
-    for (const [ dependency, serviceDefinition ] of context.entries()) {
+    for (const [ dependency, serviceDefinition ] of map.entries()) {
         if (predicate(serviceDefinition, dependency)) {
             result.push(dependency);
         }

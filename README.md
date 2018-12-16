@@ -92,10 +92,12 @@ ensure(context, [ 'ResourceManager', 'CacheManager', 'SessionManager' ], (resour
 
 ### API
 
-**ServiceManager.prototype methods**
+**ServiceContext.prototype methods**
 
 ```
-constructor(configuration?: (ServiceContext) => void)
+constructor(map?: ((ServiceMap) => void) | ServiceMap)
+
+extend(configuration: (ServiceMap) => void): ServiceContext
 
 get(dependency: any): any
 

@@ -1,8 +1,8 @@
-import ServiceContext from '../serviceContext';
+import ServiceMap from '../serviceMap';
 import filter from './filter';
 
-function filterByTag(context: ServiceContext, tag: string): Array<string> {
-    return filter(context, (serviceTarget) => serviceTarget.tags.indexOf(tag) >= 0);
+function filterByTag(map: ServiceMap, tag: string): Array<string> {
+    return filter(map, (serviceTarget) => serviceTarget.tags.indexOf(tag) >= 0);
 }
 
 export {

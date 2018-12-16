@@ -1,8 +1,8 @@
-import ServiceContext from '../serviceContext';
+import ServiceMap from '../serviceMap';
 import get from './get';
 
-function getRange(context: ServiceContext, ...dependencies: Array<any>): Array<any> {
-    return dependencies.map((dependency) => get(context, dependency));
+function getRange(map: ServiceMap, ...dependencies: Array<any>): Array<any> {
+    return dependencies.map((dependency) => get(map, dependency));
 }
 
 export {
