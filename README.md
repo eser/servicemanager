@@ -116,7 +116,7 @@ Transient services call generator/dependency target each time they are requested
 whereas, Singleton services are registered when they are defined.
 
 ```js
-import { ServiceContext, transient, singleton, get } from 'servicemanager';
+import { ServiceContext, transient, singleton } from 'servicemanager';
 
 const date1 = Symbol('date1');
 const date2 = Symbol('date2');
@@ -126,9 +126,9 @@ const context = new ServiceContext(container => {
     container.set(date2, singleton(new Date()));
 });
 
-console.log(get(context, date1)); // calls and returns new Date()
-console.log(get(context, date1)); // calls and returns new Date() again,
-console.log(get(context, date2)); // no calls, returns stored date.
+console.log(context.get(date1)); // calls and returns new Date()
+console.log(context.get(date1)); // calls and returns new Date() again,
+console.log(context.get(date2)); // no calls, returns stored date.
 ```
 
 
