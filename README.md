@@ -28,9 +28,9 @@ To register objects to service manager, create a file/module for your service co
 //
 // serviceContext.js
 //
-import { ServiceContext, transient, singleton } from 'servicemanager';
+import useServiceManager, { transient, singleton } from 'servicemanager';
 
-const context = new ServiceContext(container => {
+const context = useServiceManager(container => {
     container.set('ResourceManager', transient(DefaultResourceManager));
     container.set('CacheManager', transient(CustomCacheManager));
     container.set('SessionManager', singleton(mySessionManager));
@@ -116,12 +116,12 @@ Transient services call generator/dependency target each time they are requested
 whereas, Singleton services are registered when they are defined.
 
 ```js
-import { ServiceContext, transient, singleton } from 'servicemanager';
+import useServiceManager, { transient, singleton } from 'servicemanager';
 
 const date1 = Symbol('date1');
 const date2 = Symbol('date2');
 
-const context = new ServiceContext(container => {
+const context = useServiceManager(container => {
     container.set(date1, transient(() => new Date()));
     container.set(date2, singleton(new Date()));
 });

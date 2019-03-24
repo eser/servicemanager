@@ -1,3 +1,4 @@
+import useServiceManager from './useServiceManager';
 import ServiceContext from './serviceContext';
 import ServiceMap from './serviceMap';
 import ServiceLifetime from './serviceLifetime';
@@ -13,7 +14,8 @@ import get from './methods/get';
 import getRange from './methods/getRange';
 
 export {
-    ServiceContext as default,
+    useServiceManager as default,
+    useServiceManager,
     ServiceContext,
     ServiceMap,
     ServiceLifetime,

@@ -1,3 +1,4 @@
+import useServiceManager from './useServiceManager';
 import ServiceContext from './serviceContext';
 import ServiceMap from './serviceMap';
 import ServiceLifetime from './serviceLifetime';
@@ -11,4 +12,4 @@ import filter, { FilterPredicate } from './methods/filter';
 import filterByTag from './methods/filterByTag';
 import get from './methods/get';
 import getRange from './methods/getRange';
-export { ServiceContext as default, ServiceContext, ServiceMap, ServiceLifetime, singleton, transient, all, createMap, ensure, extendMap, filter, FilterPredicate, filterByTag, get, getRange, };
+export { useServiceManager as default, useServiceManager, ServiceContext, ServiceMap, ServiceLifetime, singleton, transient, all, createMap, ensure, extendMap, filter, FilterPredicate, filterByTag, get, getRange, };
