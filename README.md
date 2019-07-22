@@ -28,13 +28,13 @@ To register objects to service manager, create a file/module for your service co
 //
 // serviceContext.js
 //
-import useServiceManager, { transient, singleton } from 'servicemanager';
+import useServiceManager, { factory, singleton } from 'servicemanager';
 
-const context = useServiceManager(container => {
-    container.set('ResourceManager', transient(DefaultResourceManager));
-    container.set('CacheManager', transient(CustomCacheManager));
-    container.set('SessionManager', singleton(mySessionManager));
-});
+const context = useServiceManager(
+    [ 'ResourceManager', factory(DefaultResourceManager) ],
+    [ 'CacheManager', factory(CustomCacheManager) ],
+    [ 'SessionManager', singleton(mySessionManager) ]
+);
 
 export {
     context as default,
@@ -112,19 +112,19 @@ filterByTag(tag: string): Array<string>
 
 ## Mechanics
 
-Transient services call generator/dependency target each time they are requested,
+Factory services call generator/dependency target each time they are requested,
 whereas, Singleton services are registered when they are defined.
 
 ```js
-import useServiceManager, { transient, singleton } from 'servicemanager';
+import useServiceManager, { factory, singleton } from 'servicemanager';
 
 const date1 = Symbol('date1');
 const date2 = Symbol('date2');
 
-const context = useServiceManager(container => {
-    container.set(date1, transient(() => new Date()));
-    container.set(date2, singleton(new Date()));
-});
+const context = useServiceManager(
+    [ date1, factory(() => new Date()) ],
+    [ date2, singleton(new Date()) ]
+);
 
 console.log(context.get(date1)); // calls and returns new Date()
 console.log(context.get(date1)); // calls and returns new Date() again,
@@ -161,15 +161,14 @@ It is publicly open for any contribution. Bugfixes, new features and extra modul
 
 [Visit my patreon profile at patreon.com/eserozvataf](https://www.patreon.com/eserozvataf)
 
-
-[build-image]: https://travis-ci.org/eserozvataf/servicemanager.svg?branch=master
+[build-image]: https://img.shields.io/travis/eserozvataf/servicemanager.svg?style=flat-square
 [build-url]: https://travis-ci.org/eserozvataf/servicemanager
 [npm-image]: https://img.shields.io/npm/v/servicemanager.svg?style=flat-square
-[npm-url]: https://www.npmjs.com/package/servicemanager
 [npm-download-image]: https://img.shields.io/npm/dt/servicemanager.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/servicemanager
 [dep-image]: https://img.shields.io/david/eserozvataf/servicemanager.svg?style=flat-square
 [dep-url]: https://github.com/eserozvataf/servicemanager
-[coverage-image]: https://codecov.io/gh/eserozvataf/servicemanager/branch/master/graph/badge.svg
+[coverage-image]: https://img.shields.io/codecov/c/github/eserozvataf/servicemanager.svg?style=flat-square
 [coverage-url]: https://codecov.io/gh/eserozvataf/servicemanager
 [license-image]: https://img.shields.io/npm/l/servicemanager.svg?style=flat-square
 [license-url]: https://github.com/eserozvataf/servicemanager/blob/master/LICENSE

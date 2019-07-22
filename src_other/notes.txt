@@ -1,0 +1,55 @@
+// create custom context
+import { createContext, factory, singleton } from 'servicemanager';
+
+const context = createContext(
+    [ 'a', singleton('A') ], // returns 'A'
+    [ 'b', factory(ctx => ctx.get('a').toLowerCase()) ], // returns 'a'
+);
+
+export {
+    context as default,
+};
+
+----
+
+// update custom context
+import { createContext, singleton } from 'servicemanager';
+import oldContext from './services';
+
+const context = createContext(
+    ...oldContext,
+    [ 'a', singleton('B') ],
+    [ 'b', undefined ],
+);
+
+export {
+    context as default,
+};
+
+----
+
+// global context
+import { configureContext, singleton } from 'servicemanager';
+
+configureContext( // secretly concats globalContext with new parameter
+    [ 'a', singleton('C') ],
+    [ 'b', factory(ctx => ctx.get('a').toLowerCase()) ], // returns 'c'
+);
+
+----
+
+// use from global context
+import { useService } from 'servicemanager';
+
+useService('a');
+
+----
+
+// use from custom context
+import { useService } from 'servicemanager';
+import oldContext from './services';
+
+useService(oldContext, 'a');
+
+* getService('a');
+* withService('a', x => deleteEntry(x, 1));

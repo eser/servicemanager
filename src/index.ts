@@ -1,9 +1,11 @@
+// import 'reflect-metadata';
+
 import useServiceManager from './useServiceManager';
 import ServiceContext from './serviceContext';
 import ServiceMap from './serviceMap';
-import ServiceLifetime from './serviceLifetime';
-import singleton from './singleton';
-import transient from './transient';
+import ServiceType from './serviceType';
+import singleton from './types/singleton';
+import factory from './types/factory';
 import all from './methods/all';
 import createMap from './methods/createMap';
 import ensure from './methods/ensure';
@@ -13,14 +15,17 @@ import filterByTag from './methods/filterByTag';
 import get from './methods/get';
 import getRange from './methods/getRange';
 
+// function someFunc(a: number, b: string) {}
+// console.log(Reflect.getMetadata('design:types', someFunc)); // Number, String
+
 export {
     useServiceManager as default,
     useServiceManager,
     ServiceContext,
     ServiceMap,
-    ServiceLifetime,
+    ServiceType,
     singleton,
-    transient,
+    factory,
     all,
     createMap,
     ensure,

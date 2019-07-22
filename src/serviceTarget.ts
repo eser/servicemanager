@@ -1,8 +1,8 @@
-import ServiceLifetime from './serviceLifetime';
+import ServiceType from './serviceType';
 
 interface ServiceTarget {
     target: any;
-    lifetime: ServiceLifetime;
+    type: ServiceType;
     tags: Array<string>;
 }
 

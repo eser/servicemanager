@@ -17,7 +17,9 @@
         "rootDir": "./src/",
         "outDir": "./dist/",
         "lib": [
-            "es5"
+            "es5",
+            "es2015.collection",
+            "es2015.promise"
         ],
         "baseUrl": ".",
         "paths": {

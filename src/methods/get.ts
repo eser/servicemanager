@@ -1,5 +1,5 @@
 import ServiceMap from '../serviceMap';
-import ServiceLifetime from '../serviceLifetime';
+import ServiceType from '../serviceType';
 
 function get(map: ServiceMap, dependency: any): any {
     const serviceTarget = map.get(dependency);
@@ -8,7 +8,7 @@ function get(map: ServiceMap, dependency: any): any {
         return undefined;
     }
 
-    if (serviceTarget.lifetime === ServiceLifetime.Singleton ||
+    if (serviceTarget.type === ServiceType.Singleton ||
         !(serviceTarget.target instanceof Function)) {
         return serviceTarget.target;
     }

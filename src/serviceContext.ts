@@ -1,4 +1,4 @@
-import ServiceMap from './serviceMap';
+import ServiceMap, { ServiceMapPair } from './serviceMap';
 import all from './methods/all';
 import createMap from './methods/createMap';
 import ensure from './methods/ensure';
@@ -11,16 +11,12 @@ import getRange from './methods/getRange';
 class ServiceContext {
     map: ServiceMap;
 
-    constructor(map?: ((ServiceMap) => void) | ServiceMap) {
-        this.map = (map instanceof Map) ?
-            map :
-            createMap(map);
+    constructor(...definitions: Array<ServiceMapPair>) {
+        this.map = createMap(...definitions);
     }
 
-    extend(configuration: (ServiceMap) => void): ServiceContext {
-        const newMap = extendMap(this.map, configuration);
-
-        return new ServiceContext(newMap);
+    extend(...definitions: Array<ServiceMapPair>): ServiceContext {
+        return new ServiceContext(...this.map, ...definitions);
     }
 
     get(dependency: any): any {
