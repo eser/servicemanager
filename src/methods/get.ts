@@ -13,6 +13,7 @@ function get(map: ServiceMap, dependency: any): any {
         return serviceTarget.target;
     }
 
+    // TODO pass service context as a parameter
     return serviceTarget.target();
 }
 

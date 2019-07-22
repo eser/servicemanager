@@ -2,7 +2,7 @@
 
 [![build status][build-image]][build-url]
 [![npm version][npm-image]][npm-url]
-[![npm download][download-image]][npm-url]
+[![npm download][npm-download-image]][npm-url]
 [![dependencies][dep-image]][dep-url]
 [![coverage status][coverage-image]][coverage-url]
 [![license][license-image]][license-url]
@@ -166,7 +166,7 @@ It is publicly open for any contribution. Bugfixes, new features and extra modul
 [build-url]: https://travis-ci.org/eserozvataf/servicemanager
 [npm-image]: https://img.shields.io/npm/v/servicemanager.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/servicemanager
-[download-image]: https://img.shields.io/npm/dt/servicemanager.svg?style=flat-square
+[npm-download-image]: https://img.shields.io/npm/dt/servicemanager.svg?style=flat-square
 [dep-image]: https://img.shields.io/david/eserozvataf/servicemanager.svg?style=flat-square
 [dep-url]: https://github.com/eserozvataf/servicemanager
 [coverage-image]: https://codecov.io/gh/eserozvataf/servicemanager/branch/master/graph/badge.svg

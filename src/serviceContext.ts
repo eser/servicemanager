@@ -13,8 +13,8 @@ class ServiceContext {
 
     constructor(map?: ((ServiceMap) => void) | ServiceMap) {
         this.map = (map instanceof Map) ?
-                    map :
-                    createMap(map);
+            map :
+            createMap(map);
     }
 
     extend(configuration: (ServiceMap) => void): ServiceContext {
