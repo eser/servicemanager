@@ -1,0 +1,1 @@
+{"version":3,"file":"createContext.js","sourceRoot":"","sources":["../../src/createContext.ts"],"names":[],"mappings":";;;AAAA,4EAA8C;AAE9C,mDAAqD;AAErD,SAAS,aAAa;IAAC,qBAAkC;SAAlC,UAAkC,EAAlC,qBAAkC,EAAlC,IAAkC;QAAlC,gCAAkC;;IACrD,IAAM,OAAO,QAAO,wBAAc,YAAd,wBAAc,6BAAI,WAAW,KAAC,CAAC;IAEnD,kCAAiB,CAAC,OAAO,CAAC,CAAC;IAE3B,OAAO,OAAO,CAAC;AACnB,CAAC;AAGoB,gCAAO"}

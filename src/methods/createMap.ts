@@ -1,12 +1,14 @@
-import ServiceMap from '../serviceMap';
+import ServiceMap, { ServiceMapPair, ServiceDefinitions } from '../serviceMap';
 import ServiceTarget from '../serviceTarget';
 
-function createMap(configuration?: (ServiceMap) => void): ServiceMap {
+function createMap(...definitions: ServiceDefinitions): ServiceMap {
+    if (definitions.length === 0 || definitions[0].constructor !== Function) {
+        return new Map<any, ServiceTarget>(<Array<ServiceMapPair>>definitions);
+    }
+
     const serviceMap = new Map<any, ServiceTarget>();
 
-    if (configuration !== undefined) {
-        configuration(serviceMap);
-    }
+    (<(ServiceMap: any) => void>definitions[0])(serviceMap);
 
     return serviceMap;
 }

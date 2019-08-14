@@ -1,10 +1,32 @@
-import { useServiceManager, ServiceContext, createMap, singleton, transient, all, ensure, get, getRange, filter, filterByTag, extendMap } from '..';
+import { useServiceManager, createContext, ServiceContext, createMap, singleton, factory, all, ensure, get, getRange, filter, filterByTag } from '..';
 
 describe('resolving', () => {
+    test('get (use)', () => {
+        createContext((container) => {
+            container.set('eser', factory('12345'));
+        });
+
+        const services = <ServiceContext>useServiceManager();
+
+        const eser = services.get('eser');
+
+        expect(eser).toEqual('12345');
+    });
+
     test('get', () => {
         const services = createMap((container) => {
-            container.set('eser', transient('12345'));
+            container.set('eser', factory('12345'));
         });
+
+        const eser = get(services, 'eser');
+
+        expect(eser).toEqual('12345');
+    });
+
+    test('get from mapping', () => {
+        const services = createMap(
+            [ 'eser', factory('12345') ],
+        );
 
         const eser = get(services, 'eser');
 
@@ -19,25 +41,9 @@ describe('resolving', () => {
         expect(eser).toEqual(undefined);
     });
 
-    test('get from extended', () => {
-        const services = createMap((container) => {
-            container.set('eser', transient('12345'));
-        });
-
-        const newServices = extendMap(services, (container) => {
-            container.set('seyma', singleton('6789'));
-        });
-
-        const eser = get(newServices, 'eser');
-        const seyma = get(newServices, 'seyma');
-
-        expect(eser).toEqual('12345');
-        expect(seyma).toEqual('6789');
-    });
-
     test('get (context)', () => {
         const services = new ServiceContext((container) => {
-            container.set('eser', transient('12345'));
+            container.set('eser', factory('12345'));
         });
 
         const eser = services.get('eser');
@@ -45,51 +51,27 @@ describe('resolving', () => {
         expect(eser).toEqual('12345');
     });
 
-    test('get from extended (context)', () => {
-        const services = new ServiceContext((container) => {
-            container.set('eser', transient('12345'));
-        });
-
-        const newServices = services.extend((container) => {
-            container.set('seyma', singleton('6789'));
-        });
-
-        const eser = newServices.get('eser');
-        const seyma = newServices.get('seyma');
-
-        expect(eser).toEqual('12345');
-        expect(seyma).toEqual('6789');
-    });
-
-    test('get (use)', () => {
-        const services = useServiceManager((container) => {
-            container.set('eser', transient('12345'));
-        });
+    test('get from mapping (context)', () => {
+        const services = new ServiceContext(
+            [ 'eser', factory('12345') ],
+        );
 
         const eser = services.get('eser');
 
         expect(eser).toEqual('12345');
     });
 
-    test('get from extended (use)', () => {
-        const services = useServiceManager((container) => {
-            container.set('eser', transient('12345'));
-        });
+    test('get undefined (context)', () => {
+        const services = new ServiceContext();
 
-        const newServices = services.extend((container) => {
-            container.set('seyma', singleton('6789'));
-        });
+        const eser = services.get(undefined);
 
-        const eser = newServices.get('eser');
-        const seyma = newServices.get('seyma');
-
-        expect(eser).toEqual('12345');
-        expect(seyma).toEqual('6789');
+        expect(eser).toEqual(undefined);
     });
 
     test('getRange', () => {
         const services = createMap((container) => {
-            container.set('eser', transient('12345'));
+            container.set('eser', factory('12345'));
             container.set('seyma', singleton('6789'));
         });
 
@@ -101,7 +83,7 @@ describe('resolving', () => {
 
     test('getRange (context)', () => {
         const services = new ServiceContext((container) => {
-            container.set('eser', transient('12345'));
+            container.set('eser', factory('12345'));
             container.set('seyma', singleton('6789'));
         });
 
@@ -112,8 +94,8 @@ describe('resolving', () => {
     });
 
     test('getRange (use)', () => {
-        const services = useServiceManager((container) => {
-            container.set('eser', transient('12345'));
+        const services = createContext((container) => {
+            container.set('eser', factory('12345'));
             container.set('seyma', singleton('6789'));
         });
 
@@ -125,8 +107,8 @@ describe('resolving', () => {
 
     test('ensure', async () => {
         const services = createMap((container) => {
-            container.set('eser', transient(() => '12345'));
-            container.set('seyma', transient(async () => Promise.resolve('6789')));
+            container.set('eser', factory(() => '12345'));
+            container.set('seyma', factory(async () => Promise.resolve('6789')));
         });
 
         const result = await ensure(
@@ -141,8 +123,8 @@ describe('resolving', () => {
 
     test('ensure (context)', async () => {
         const services = new ServiceContext((container) => {
-            container.set('eser', transient(() => '12345'));
-            container.set('seyma', transient(async () => Promise.resolve('6789')));
+            container.set('eser', factory(() => '12345'));
+            container.set('seyma', factory(async () => Promise.resolve('6789')));
         });
 
         const result = await services.ensure(
@@ -155,9 +137,9 @@ describe('resolving', () => {
     });
 
     test('ensure (use)', async () => {
-        const services = useServiceManager((container) => {
-            container.set('eser', transient(() => '12345'));
-            container.set('seyma', transient(async () => Promise.resolve('6789')));
+        const services = createContext((container) => {
+            container.set('eser', factory(() => '12345'));
+            container.set('seyma', factory(async () => Promise.resolve('6789')));
         });
 
         const result = await services.ensure(
@@ -173,9 +155,9 @@ describe('resolving', () => {
 describe('filtering', () => {
     test('all', () => {
         const services = createMap((container) => {
-            container.set('eser', transient('12345'));
-            container.set('seyma', transient('6789'));
-            container.set('kedi', transient('9999'));
+            container.set('eser', factory('12345'));
+            container.set('seyma', factory('6789'));
+            container.set('kedi', factory('9999'));
         });
 
         const allOfThem = all(services);
@@ -185,9 +167,9 @@ describe('filtering', () => {
 
     test('all (context)', () => {
         const services = new ServiceContext((container) => {
-            container.set('eser', transient('12345'));
-            container.set('seyma', transient('6789'));
-            container.set('kedi', transient('9999'));
+            container.set('eser', factory('12345'));
+            container.set('seyma', factory('6789'));
+            container.set('kedi', factory('9999'));
         });
 
         const allOfThem = services.all();
@@ -196,10 +178,10 @@ describe('filtering', () => {
     });
 
     test('all (use)', () => {
-        const services = useServiceManager((container) => {
-            container.set('eser', transient('12345'));
-            container.set('seyma', transient('6789'));
-            container.set('kedi', transient('9999'));
+        const services = createContext((container) => {
+            container.set('eser', factory('12345'));
+            container.set('seyma', factory('6789'));
+            container.set('kedi', factory('9999'));
         });
 
         const allOfThem = services.all();
@@ -209,9 +191,9 @@ describe('filtering', () => {
 
     test('filter', () => {
         const services = createMap((container) => {
-            container.set('eser', transient('12345'));
-            container.set('seyma', transient('6789'));
-            container.set('kedi', transient('9999'));
+            container.set('eser', factory('12345'));
+            container.set('seyma', factory('6789'));
+            container.set('kedi', factory('9999'));
         });
 
         const filtered = filter(services, (service, dependency) => dependency.indexOf('s') >= 0);
@@ -221,9 +203,9 @@ describe('filtering', () => {
 
     test('filter (context)', () => {
         const services = new ServiceContext((container) => {
-            container.set('eser', transient('12345'));
-            container.set('seyma', transient('6789'));
-            container.set('kedi', transient('9999'));
+            container.set('eser', factory('12345'));
+            container.set('seyma', factory('6789'));
+            container.set('kedi', factory('9999'));
         });
 
         const filtered = services.filter((service, dependency) => dependency.indexOf('s') >= 0);
@@ -232,10 +214,10 @@ describe('filtering', () => {
     });
 
     test('filter (use)', () => {
-        const services = useServiceManager((container) => {
-            container.set('eser', transient('12345'));
-            container.set('seyma', transient('6789'));
-            container.set('kedi', transient('9999'));
+        const services = createContext((container) => {
+            container.set('eser', factory('12345'));
+            container.set('seyma', factory('6789'));
+            container.set('kedi', factory('9999'));
         });
 
         const filtered = services.filter((service, dependency) => dependency.indexOf('s') >= 0);
@@ -268,7 +250,7 @@ describe('filtering', () => {
     });
 
     test('filterByTag (use)', () => {
-        const services = useServiceManager((container) => {
+        const services = createContext((container) => {
             container.set('eser', singleton('12345', [ 'human' ]));
             container.set('seyma', singleton('6789', [ 'human' ]));
             container.set('kedi', singleton('9999', [ 'cat' ]));

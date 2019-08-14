@@ -1,8 +1,9 @@
-import ServiceContext from './serviceContext';
-import ServiceMap from './serviceMap';
+import { getDefaultContext } from './defaultContext';
 
-function useServiceManager(map?: ((ServiceMap) => void) | ServiceMap): ServiceContext {
-    return new ServiceContext(map);
+function useServiceManager() {
+    const context = getDefaultContext();
+
+    return context;
 }
 
 export {

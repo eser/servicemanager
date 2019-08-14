@@ -12,22 +12,4 @@ import filter, { FilterPredicate } from './methods/filter';
 import filterByTag from './methods/filterByTag';
 import get from './methods/get';
 import getRange from './methods/getRange';
-
-export {
-    useServiceManager as default,
-    useServiceManager,
-    createContext,
-    ServiceContext,
-    ServiceMap,
-    ServiceType,
-    singleton,
-    factory,
-    all,
-    createMap,
-    ensure,
-    filter,
-    FilterPredicate,
-    filterByTag,
-    get,
-    getRange,
-};
+export { useServiceManager as default, useServiceManager, createContext, ServiceContext, ServiceMap, ServiceType, singleton, factory, all, createMap, ensure, filter, FilterPredicate, filterByTag, get, getRange, };

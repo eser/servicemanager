@@ -1,8 +1,7 @@
-import ServiceMap, { ServiceMapPair } from './serviceMap';
+import ServiceMap, { ServiceMapPair, ServiceDefinitions } from './serviceMap';
 import all from './methods/all';
 import createMap from './methods/createMap';
 import ensure from './methods/ensure';
-import extendMap from './methods/extendMap';
 import filter, { FilterPredicate } from './methods/filter';
 import filterByTag from './methods/filterByTag';
 import get from './methods/get';
@@ -11,12 +10,8 @@ import getRange from './methods/getRange';
 class ServiceContext {
     map: ServiceMap;
 
-    constructor(...definitions: Array<ServiceMapPair>) {
+    constructor(...definitions: ServiceDefinitions) {
         this.map = createMap(...definitions);
-    }
-
-    extend(...definitions: Array<ServiceMapPair>): ServiceContext {
-        return new ServiceContext(...this.map, ...definitions);
     }
 
     get(dependency: any): any {
