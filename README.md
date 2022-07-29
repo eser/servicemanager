@@ -8,6 +8,12 @@
 [![license][license-image]][license-url]
 
 
+## Update (July 2022)
+
+DEPRECATED in favor of [hex](https://github.com/eserozvataf/hex).
+See https://github.com/eserozvataf/hex for details.
+
+
 ## What is the ServiceManager?
 
 ServiceManager is probably the most basic implementation of dependency injection container for JavaScript.
